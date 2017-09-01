@@ -12,7 +12,6 @@
 #'
 eval_and_set_class <- function(x, fnc) {
   classes <- paste0(c("exp", "log"), "ed")
-  current_class <- setdiff(classes, class(x))
   value <- fnc(x)
   fnc_call <- match.call()
   fnc_name <- fnc_call$fnc[3]
