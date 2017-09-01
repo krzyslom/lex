@@ -1,0 +1,16 @@
+Package: lex
+Title: Keep track of exponentialized and logarithmized values
+Version: 0.0.0.9000
+Authors@R: person("Krzysztof", "Słomczyński",
+    email = "krzysztofslomczynski@gmail.com", role = c("aut", "cre"))
+Description: Packages provide functions that helps the user with testing if the
+    values are currently exponentialized or logarithmized.
+Depends: R (>= 3.4.0)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Imports: fma
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -1,0 +1,53 @@
+---
+title: "Using lex package"
+author: "Krzysztof Slomczynski"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Perhaps one is doing `dplyr` operations on a `tibble` and does not wish to
+create additional `exp_` or `log_` prefixed columns all the time, or maybe has
+to keep data in not yet decided form in the data base, but wants the columns to
+be named only once and established in the schema. It is possible to lose track
+of the current state of the data in the complicated workflow with many different
+calculations and back and forth `log–exp` transformations.
+
+`lex` package was written to help users keep track of data transformation
+status.
+
+Consider that you have a data series with increasing or decreasing variation
+e.g. `fma::elec`.
+
+```{r}
+plot(fma::elec)
+```
+
+One would wish to transform such data so that seasonal variation will be about
+the same across the whole series.
+
+```{r}
+log_elec <- lex::log(fma::elec)
+plot(log_elec)
+```
+
+The information about transformation is held in data's class attribute.
+
+```{r}
+class(log_elec)
+```
+
+One could wish to check for expected data transformation form in crucial moments
+of the workflow e.g. just before performing addition or multiplication. Common
+mistake is to mix sum of logharitms with logarithm of sums.
+
+```{r}
+sum_logs <- function(x, y) {
+  lex::expect_loged(x) + lex::expect_loged(y)
+}
+
+sum_logs(lex::log(1:5), lex::log(21:25))
+```
